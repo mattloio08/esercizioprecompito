@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Calcolatrice</h1>
+
+    <form method="POST" action="">
+
+        <div class="campo">
+            <label for="a">a:</label>
+            <input type="number" step="any" id="a"
+                   name="a"
+                   value="<?= htmlspecialchars($_POST['a'] ?? '') ?>"
+                   required>
+        </div>
+
+        <div class="campo">
+            <label for="b">b:</label>
+            <input type="number" step="any" id="b"
+                   name="b"
+                   value="<?= htmlspecialchars($_POST['b'] ?? '') ?>"
+                   required>
+        </div>
+
+        <fieldset>
+            <legend>Operazione</legend>
+
+            <?php
+            $op = $_POST["operazione"] ?? "";
+            ?>
+
+            <label class="scelta">
+                <input type="radio" name="operazione"
+                       value="somma"
+                       <?= $op == "somma" ? "checked" : "" ?>
+                       required>
+                somma
+            </label>
+
+            <label class="scelta">
+                <input type="radio" name="operazione"
+                       value="differenza"
+                       <?= $op == "differenza" ? "checked" : "" ?>>
+                differenza
+            </label>
+
+            <label class="scelta">
+                <input type="radio" name="operazione"
+                       value="prodotto"
+                       <?= $op == "prodotto" ? "checked" : "" ?>>
+                prodotto
+            </label>
+
+            <label class="scelta">
+                <input type="radio" name="operazione"
+                       value="quoziente"
+                       <?= $op == "quoziente" ? "checked" : "" ?>>
+                quoziente
+            </label>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Opzioni</legend>
+
+            <label class="scelta">
+                <input type="checkbox" name="assoluto"
+                       <?= isset($_POST['assoluto']) ? "checked" : "" ?>>
+                valore assoluto
+            </label>
+
+            <label class="scelta">
+                <input type="checkbox" name="quadrato"
+                       <?= isset($_POST['quadrato']) ? "checked" : "" ?>>
+                quadrato
+            </label>
+
+            <label class="scelta">
+                <input type="checkbox" name="arrotonda"
+                       <?= isset($_POST['arrotonda']) ? "checked" : "" ?>>
+                arrotonda a 2 decimali
+            </label>
+
+        </fieldset>
+
+        <button type="submit">Calcola</button>
+
+    </form>
+
+    <?php if ($errore != ""): ?>
+
+        <div class="errore">
+            <strong>Errore:</strong>
+            <?= htmlspecialchars($errore) ?>
+        </div>
+
+    <?php endif; ?>
+
+    <?php if ($risultato !== null && $errore == ""): ?>
+
+        <div class="risultato">
+            <strong>Risultato:</strong>
+            <?= htmlspecialchars((string)$risultato) ?>
+        </div>
+
+    <?php endif; ?>
+
+    
+</body>
+</html>
